@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public RawImage background;
     public RawImage platform;
     public GameState estadoDelJuego = GameState.Idle;
+    public GameObject uiIdle;
     public enum GameState
     {
         Idle,
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
         if (estadoDelJuego == GameState.Idle && (Input.GetKeyDown("up") || Input.GetMouseButtonDown(0)))
         {
             estadoDelJuego = GameState.Playing;
+            uiIdle.SetActive(false);
         }
         else if (estadoDelJuego == GameState.Playing)
         {
