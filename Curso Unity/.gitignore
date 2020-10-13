@@ -3,12 +3,20 @@
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
 /[Ll]ibrary/
+/Curso Unity/[Ll]ibrary/
+/Curso\ Unity/[Ll]ibrary/
 /[Tt]emp/
+/Curso\ Unity/[Tt]emp/
 /[Oo]bj/
+/Curso\ Unity/[Oo]bj/
 /[Bb]uild/
+/Curso\ Unity/[Bb]uild/
 /[Bb]uilds/
+/Curso\ Unity/[Bb]uilds/
 /[Ll]ogs/
+/Curso\ Unity/[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/Curso\ Unity/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
