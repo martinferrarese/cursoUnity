@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public RawImage platform;
     public GameState estadoDelJuego = GameState.Idle;
     public GameObject uiIdle;
+    public GameObject player;
     public enum GameState
     {
         Idle,
@@ -29,6 +30,7 @@ public class GameController : MonoBehaviour
         {
             estadoDelJuego = GameState.Playing;
             uiIdle.SetActive(false);
+            player.SendMessage("cambiarAnimacionA", "PlayerRun");
         }
         else if (estadoDelJuego == GameState.Playing)
         {
