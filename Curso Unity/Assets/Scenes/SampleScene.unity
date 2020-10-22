@@ -899,7 +899,7 @@ MonoBehaviour:
   platform: {fileID: 1064115982}
   estadoDelJuego: 0
   uiIdle: {fileID: 163171218}
-  player: {fileID: 0}
+  player: {fileID: 871239135}
 --- !u!1 &2077969391
 GameObject:
   m_ObjectHideFlags: 0
