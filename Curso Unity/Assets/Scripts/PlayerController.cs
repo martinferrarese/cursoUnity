@@ -14,7 +14,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            saltar();
+        }
     }
 
     public void cambiarAnimacionA(string animacion = null)
@@ -23,6 +26,10 @@ public class PlayerController : MonoBehaviour
         {
             animador.Play(animacion);
         }
+    }
 
+    public void saltar()
+    {
+       animador.Play("PlayerJump");
     }
 }

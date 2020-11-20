@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (estadoDelJuego == GameState.Idle && (Input.GetKeyDown("up") || Input.GetMouseButtonDown(0)))
+        if (estadoDelJuego == GameState.Idle && (Input.anyKey))
         {
             estadoDelJuego = GameState.Playing;
             uiIdle.SetActive(false);
@@ -34,11 +34,11 @@ public class GameController : MonoBehaviour
         }
         else if (estadoDelJuego == GameState.Playing)
         {
-            InciarParallax();
+            IniciarParallax();
         }
     }
 
-    private void InciarParallax()
+    private void IniciarParallax()
     {
         // Necesario para regular la velocidad independientemente del dispositivo
         float velocidadFinal = velocidadDelParallax * Time.deltaTime;
