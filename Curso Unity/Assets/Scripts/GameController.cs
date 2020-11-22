@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public GameState estadoDelJuego = GameState.Idle;
     public GameObject uiIdle;
     public GameObject player;
+    public GameObject generadorDeEnemigos;
     public enum GameState
     {
         Idle,
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
             estadoDelJuego = GameState.Playing;
             uiIdle.SetActive(false);
             player.SendMessage("cambiarAnimacionA", "PlayerRun");
+            generadorDeEnemigos.SendMessage("ComenzarGeneracionDeEnemigos");
         }
         else if (estadoDelJuego == GameState.Playing)
         {
