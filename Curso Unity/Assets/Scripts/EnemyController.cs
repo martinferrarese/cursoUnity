@@ -19,4 +19,10 @@ public class EnemyController : MonoBehaviour
     {
         
     }
+
+    void OnTriggerEnter2D(Collider2D colisionDetectada)
+    {
+        if(colisionDetectada.gameObject.tag == "ParedIzquierda")
+            Destroy(gameObject);
+    }
 }
