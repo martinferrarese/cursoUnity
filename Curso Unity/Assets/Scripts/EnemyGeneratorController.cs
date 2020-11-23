@@ -22,9 +22,23 @@ public class EnemyGeneratorController : MonoBehaviour
         Instantiate(fabricadorDeMonstruos, transform.position, Quaternion.identity);
     }
 
-    void ComenzarGeneracionDeEnemigos()
+    public void ComenzarGeneracionDeEnemigos()
     {
         InvokeRepeating("CrearEnemigo", 0f, tiempoDeCreacion);
     }
 
+    public void CancelarGeneracionDeEnemigos()
+    {
+        CancelInvoke("CrearEnemigo");
+    }
+
+    public void LimpiarEnemigos()
+    {
+        Object[] enemigosGenerados = GameObject.FindGameObjectsWithTag("Enemy");
+        
+        foreach (GameObject enemigoEnPantalla in enemigosGenerados)
+        {
+            Destroy(enemigoEnPantalla);    
+        }
+    }
 }

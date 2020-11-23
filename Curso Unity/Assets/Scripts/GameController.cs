@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -9,35 +10,48 @@ public class GameController : MonoBehaviour
     public RawImage background;
     public RawImage platform;
     public GameState estadoDelJuego = GameState.Idle;
+
     public GameObject uiIdle;
+    public GameObject uiLost;
+
     public GameObject player;
     public GameObject generadorDeEnemigos;
     public enum GameState
     {
         Idle,
-        Playing
+        Playing,
+        Lost,
+        ListoParaReiniciar
     };
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        uiIdle.SetActive(true);
+        uiLost.SetActive(false);
+        estadoDelJuego = GameState.Idle;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (estadoDelJuego == GameState.Idle && (Input.anyKey))
+        if (estadoDelJuego == GameState.Idle && Input.anyKey)
         {
             estadoDelJuego = GameState.Playing;
             uiIdle.SetActive(false);
-            player.SendMessage("cambiarAnimacionA", "PlayerRun");
+            player.SendMessage("CambiarAnimacionA", "PlayerRun");
             generadorDeEnemigos.SendMessage("ComenzarGeneracionDeEnemigos");
         }
         else if (estadoDelJuego == GameState.Playing)
         {
             IniciarParallax();
         }
+        else if (estadoDelJuego == GameState.ListoParaReiniciar && Input.GetKeyDown(KeyCode.R))
+        {
+            //Recarga la escena
+            SceneManager.LoadScene("Principal");
+        }
+
     }
 
     private void IniciarParallax()
@@ -46,5 +60,13 @@ public class GameController : MonoBehaviour
         float velocidadFinal = velocidadDelParallax * Time.deltaTime;
         background.uvRect = new Rect(background.uvRect.x + velocidadFinal, 0, 1f, 1f);
         platform.uvRect = new Rect(platform.uvRect.x + velocidadFinal * 4, 0, 1f, 1f);
+    }
+
+    public void PerderJuego()
+    {
+        uiLost.SetActive(true);
+        generadorDeEnemigos.SendMessage("CancelarGeneracionDeEnemigos");
+        generadorDeEnemigos.SendMessage("LimpiarEnemigos");
+        estadoDelJuego = GameState.ListoParaReiniciar;
     }
 }
