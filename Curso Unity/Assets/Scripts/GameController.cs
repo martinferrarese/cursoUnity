@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public float velocidadDelParallax = 0.02f;
     public RawImage background;
     public RawImage platform;
+    public AudioSource musicaDeFondo;
     public GameState estadoDelJuego = GameState.Idle;
 
     public GameObject uiIdle;
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour
         if (estadoDelJuego == GameState.Idle && Input.anyKey)
         {
             estadoDelJuego = GameState.Playing;
+            musicaDeFondo.Play();
             uiIdle.SetActive(false);
             player.SendMessage("CambiarAnimacionA", "PlayerRun");
             generadorDeEnemigos.SendMessage("ComenzarGeneracionDeEnemigos");
@@ -68,5 +70,10 @@ public class GameController : MonoBehaviour
         generadorDeEnemigos.SendMessage("CancelarGeneracionDeEnemigos");
         generadorDeEnemigos.SendMessage("LimpiarEnemigos");
         estadoDelJuego = GameState.ListoParaReiniciar;
+    }
+
+    public void DetenerMusica()
+    {
+        musicaDeFondo.Stop();
     }
 }
