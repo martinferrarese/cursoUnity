@@ -15,13 +15,15 @@ public class GameController : MonoBehaviour
     public GameObject uiIdle;
     public GameObject uiLost;
 
+    public float scaleTime = 6f;
+    public float scaleIncrement = .25f;
+
     public GameObject player;
     public GameObject generadorDeEnemigos;
     public enum GameState
     {
         Idle,
         Playing,
-        Lost,
         ListoParaReiniciar
     };
 
@@ -36,13 +38,16 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Empieza el juego
         if (estadoDelJuego == GameState.Idle && Input.anyKey)
         {
             estadoDelJuego = GameState.Playing;
             musicaDeFondo.Play();
             uiIdle.SetActive(false);
             player.SendMessage("CambiarAnimacionA", "PlayerRun");
+            player.SendMessage("IniciarEfectoDePolvo");
             generadorDeEnemigos.SendMessage("ComenzarGeneracionDeEnemigos");
+            InvokeRepeating("GameTimeScale", scaleTime, scaleTime);
         }
         else if (estadoDelJuego == GameState.Playing)
         {
@@ -69,11 +74,27 @@ public class GameController : MonoBehaviour
         uiLost.SetActive(true);
         generadorDeEnemigos.SendMessage("CancelarGeneracionDeEnemigos");
         generadorDeEnemigos.SendMessage("LimpiarEnemigos");
+        ResetTimeScale();
         estadoDelJuego = GameState.ListoParaReiniciar;
     }
 
     public void DetenerMusica()
     {
         musicaDeFondo.Stop();
+    }
+
+    public void GameTimeScale()
+    {
+        //Encargado de la escala de velocidad del juego
+        //Le aumenta un cuarto de velocidad a ese tiempo
+        Time.timeScale += scaleIncrement;
+        Debug.Log("Ritmo incrementado: " + Time.timeScale);
+    }
+
+    private void ResetTimeScale()
+    {
+        CancelInvoke("GameTimeScale");
+        Time.timeScale = 1f;
+        Debug.Log("Ritmo reestablecido: " + Time.timeScale);
     }
 }

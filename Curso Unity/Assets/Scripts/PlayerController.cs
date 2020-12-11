@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip sonidoDeSalto;
     public AudioClip sonidoDeMuerte;
     private AudioSource sonidosDelPersonaje;
+    public ParticleSystem polvo;
     private float posicionInicialY;
     private bool estaEnElSuelo;
     void Start()
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             animador.Play("PlayerLost");
             juego.SendMessage("DetenerMusica");
+            DetenerEfectoDePolvo();
             Reproducir(sonidoDeMuerte);
         }
 
@@ -61,5 +63,13 @@ public class PlayerController : MonoBehaviour
     {
         sonidosDelPersonaje.clip = sonido;
         sonidosDelPersonaje.Play();
+    }
+    public void IniciarEfectoDePolvo()
+    {
+        polvo.Play();
+    }
+    public void DetenerEfectoDePolvo()
+    {
+        polvo.Stop();
     }
 }
