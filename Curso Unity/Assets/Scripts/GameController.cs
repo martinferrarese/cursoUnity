@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour
         uiIdle.SetActive(true);
         uiLost.SetActive(false);
         uiPuntaje.SetActive(false);
+        
         estadoDelJuego = GameState.Idle;
     }
 
@@ -78,7 +79,7 @@ public class GameController : MonoBehaviour
 
     public void PerderJuego()
     {
-        uiPuntaje.SetActive(true);
+        uiPuntaje.SetActive(false);
         uiLost.SetActive(true);
         generadorDeEnemigos.SendMessage("CancelarGeneracionDeEnemigos");
         generadorDeEnemigos.SendMessage("LimpiarEnemigos");
