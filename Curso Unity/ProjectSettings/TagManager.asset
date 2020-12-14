@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ParedIzquierda
   - Enemy
+  - GanaPunto
   layers:
   - Default
   - TransparentFX

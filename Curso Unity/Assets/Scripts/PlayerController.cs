@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public GameObject juego;
     public AudioClip sonidoDeSalto;
     public AudioClip sonidoDeMuerte;
+    public AudioClip sonidoDePuntoAdquirido;
     private AudioSource sonidosDelPersonaje;
     public ParticleSystem polvo;
     private float posicionInicialY;
@@ -54,9 +55,14 @@ public class PlayerController : MonoBehaviour
             juego.SendMessage("DetenerMusica");
             DetenerEfectoDePolvo();
             Reproducir(sonidoDeMuerte);
+            juego.SendMessage("PerderJuego");
         }
 
-        juego.SendMessage("PerderJuego");
+        if (colisionDetectada.gameObject.tag == "GanaPunto")
+        {
+            juego.SendMessage("SumarPunto");
+            Reproducir(sonidoDePuntoAdquirido);
+        }
     }
 
     private void Reproducir(AudioClip sonido)

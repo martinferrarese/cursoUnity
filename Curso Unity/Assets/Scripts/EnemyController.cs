@@ -4,6 +4,7 @@ public class EnemyController : MonoBehaviour
 {
     public float velocidad = 2f;
     public Rigidbody2D enemigo;
+    public GameObject juego;
 
     // Start is called before the first frame update
     void Start()
@@ -22,5 +23,7 @@ public class EnemyController : MonoBehaviour
     {
         if(colisionDetectada.gameObject.tag == "ParedIzquierda")
             Destroy(gameObject);
+        if(colisionDetectada.gameObject.tag == "GanaPunto")
+            juego.SendMessage("SumarPunto");
     }
 }

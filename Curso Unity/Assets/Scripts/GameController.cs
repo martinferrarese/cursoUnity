@@ -10,10 +10,13 @@ public class GameController : MonoBehaviour
     public RawImage background;
     public RawImage platform;
     public AudioSource musicaDeFondo;
+    public Text puntajeTexto;
+    public int puntaje = 0;
     public GameState estadoDelJuego = GameState.Idle;
 
     public GameObject uiIdle;
     public GameObject uiLost;
+    public GameObject uiPuntaje;
 
     public float scaleTime = 6f;
     public float scaleIncrement = .25f;
@@ -32,6 +35,7 @@ public class GameController : MonoBehaviour
     {
         uiIdle.SetActive(true);
         uiLost.SetActive(false);
+        uiPuntaje.SetActive(false);
         estadoDelJuego = GameState.Idle;
     }
 
@@ -44,6 +48,7 @@ public class GameController : MonoBehaviour
             estadoDelJuego = GameState.Playing;
             musicaDeFondo.Play();
             uiIdle.SetActive(false);
+            uiPuntaje.SetActive(true);
             player.SendMessage("CambiarAnimacionA", "PlayerRun");
             player.SendMessage("IniciarEfectoDePolvo");
             generadorDeEnemigos.SendMessage("ComenzarGeneracionDeEnemigos");
@@ -71,6 +76,7 @@ public class GameController : MonoBehaviour
 
     public void PerderJuego()
     {
+        uiPuntaje.SetActive(true);
         uiLost.SetActive(true);
         generadorDeEnemigos.SendMessage("CancelarGeneracionDeEnemigos");
         generadorDeEnemigos.SendMessage("LimpiarEnemigos");
@@ -96,5 +102,11 @@ public class GameController : MonoBehaviour
         CancelInvoke("GameTimeScale");
         Time.timeScale = 1f;
         Debug.Log("Ritmo reestablecido: " + Time.timeScale);
+    }
+
+    public void SumarPunto()
+    {
+        puntaje++;
+        puntajeTexto.text = puntaje.ToString();
     }
 }
