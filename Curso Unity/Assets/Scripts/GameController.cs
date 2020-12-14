@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public RawImage platform;
     public AudioSource musicaDeFondo;
     public Text puntajeTexto;
+    public Text máximoPuntajeTexto;
     public int puntaje = 0;
     public GameState estadoDelJuego = GameState.Idle;
 
@@ -52,6 +53,7 @@ public class GameController : MonoBehaviour
             player.SendMessage("CambiarAnimacionA", "PlayerRun");
             player.SendMessage("IniciarEfectoDePolvo");
             generadorDeEnemigos.SendMessage("ComenzarGeneracionDeEnemigos");
+            ActualizarMáximaPuntuaciónPorPantalla();
             InvokeRepeating("GameTimeScale", scaleTime, scaleTime);
         }
         else if (estadoDelJuego == GameState.Playing)
@@ -81,7 +83,14 @@ public class GameController : MonoBehaviour
         generadorDeEnemigos.SendMessage("CancelarGeneracionDeEnemigos");
         generadorDeEnemigos.SendMessage("LimpiarEnemigos");
         ResetTimeScale();
+        SetMáximaPuntuación(puntaje);
+        ActualizarMáximaPuntuaciónPorPantalla();
         estadoDelJuego = GameState.ListoParaReiniciar;
+    }
+
+    private void ActualizarMáximaPuntuaciónPorPantalla()
+    {
+        máximoPuntajeTexto.text = "Mayor puntaje: " + GetMáximaPuntuación();
     }
 
     public void DetenerMusica()
@@ -108,5 +117,15 @@ public class GameController : MonoBehaviour
     {
         puntaje++;
         puntajeTexto.text = puntaje.ToString();
+    }
+
+    public int GetMáximaPuntuación()
+    {
+        return PlayerPrefs.GetInt("Máxima puntuación", 0);
+    }
+
+    public void SetMáximaPuntuación(int puntosRealizados)
+    {
+        PlayerPrefs.SetInt("Máxima puntuación", puntosRealizados > GetMáximaPuntuación() ? puntosRealizados : GetMáximaPuntuación());
     }
 }

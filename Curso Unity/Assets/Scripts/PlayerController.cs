@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         if (colisionDetectada.gameObject.tag == "GanaPunto")
         {
             juego.SendMessage("SumarPunto");
+            juego.SendMessage("ActualizarMáximaPuntuaciónPorPantalla");
             Reproducir(sonidoDePuntoAdquirido);
         }
     }
